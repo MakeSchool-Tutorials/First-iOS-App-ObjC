@@ -16,10 +16,10 @@ First, let's set up the automatic moving. Therefore we need to create a new meth
     //move the ship only in the x direction by a fixed amount every frame
     ship1.position = ccp( ship1.position.x + 100*delta, ship1.position.y );
 
-    if (ship1.position.x > self.contentSize.width+32)
+    if (ship1.position.x > self.contentSizeInPoints.width+ship1.contentSizeInPoints.width/2)
     {
         //if the ship reaches the edge of the screen, loop around
-        ship1.position = ccp( -32, ship1.position.y);
+        ship1.position = ccp( -ship1.contentSizeInPoints.width/2, ship1.position.y);
     }
 }
 ```
@@ -28,7 +28,7 @@ This method will get called every frame and move the ship automatically. Run the
 
 ##Step 2: Tap Tap Tap
 
-Now we need to tell Cocos2D that our scene will accept touch input from a player. Add these lines to the end of your init method (just before the closing curly braces):
+Now we need to tell Cocos2D that our scene will accept touch input from a player. Add these lines to the end of your init method (just below `[self addChild:ship2];`):
 
 ```
 //Allow player to interact with this scene
@@ -38,10 +38,7 @@ self.userInteractionEnabled = TRUE;
 Now we will be able to receive touches. To respond to a touch when we receive one, we need to add another method. Place this method between the init and the update method:
 
 ```
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // 'touches' will only contain one touch, because we aren't using multitouch
-    UITouch *touch = [touches anyObject];
-
+- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
     // we want to know the location of our touch in this scene
     CGPoint touchLocation = [touch locationInNode:self];
 
@@ -50,9 +47,12 @@ Now we will be able to receive touches. To respond to a touch when we receive on
 }
 ```
 
-Tap on the screen to see what happens! If for some reason it doesn't work, here's a full copy of the code so you can double check to make sure you didn't make any mistakes:
+Tap on the screen to see what happens! If for some reason it doesn't work, here's a full copy of the code so you can double check to make sure you didn't make any mistakes (this should be between `@implementation HelloWorldScene` and `@end`:
 
 ```
+CCSprite *ship1;
+CCSprite *ship2;
+
 - (id)init
 {
     if (self = [super init])
@@ -76,14 +76,10 @@ Tap on the screen to see what happens! If for some reason it doesn't work, here'
         //Allow player to interact with this scene
         self.userInteractionEnabled = TRUE;
     }
-
     return self;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // 'touches' will only contain one touch, because we aren't using multitouch
-    UITouch *touch = [touches anyObject];
-
+- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
     // we want to know the location of our touch in this scene
     CGPoint touchLocation = [touch locationInNode:self];
 
@@ -97,10 +93,10 @@ Tap on the screen to see what happens! If for some reason it doesn't work, here'
     //move the ship only in the x direction by a fixed amount every frame
     ship1.position = ccp( ship1.position.x + 100*delta, ship1.position.y );
 
-    if (ship1.position.x > self.contentSize.width+32)
+    if (ship1.position.x > self.contentSizeInPoints.width+ship1.contentSizeInPoints.width/2)
     {
         //if the ship reaches the edge of the screen, loop around
-        ship1.position = ccp( -32, ship1.position.y);
+        ship1.position = ccp( -ship1.contentSizeInPoints.width/2, ship1.position.y);
     }
 }
 ```

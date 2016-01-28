@@ -5,19 +5,19 @@ slug: create-the-ships
 
 ##Step 1: Download the base project
 
-First download our empty template project.
+First [download our empty template project](https://github.com/MakeSchool-Tutorials/First-iOS-App-ObjC-Starter/archive/master.zip).
 
 After the download completes, unzip the folder and open the contained project by double-clicking:
 
 ![Open Project](./1-open_template_project.png "Open Project")
 
-Once Xcode has opened the project, select the MGWU/Classes folder and open HelloWorldScene.m (single click it, double clicking it opens it in a new window – we don't want that):
+Once Xcode has opened the project, select the Source folder and open HelloWorldScene.m (single click it, double clicking it opens it in a new window – we don't want that):
 
 ![Open File In Xcode](./2-open_file_xcode.png "Open File In Xcode")
 
 ##Step 2: Start Coding!
 
-Right under the #import line, paste the following lines in:
+Right under the @implementation line, paste the following lines in:
 
 ```
 CCSprite *ship1;
